@@ -5,50 +5,92 @@ import java.util.Random;
 public class SnakeLadderMain {
     public static void main(String[] args) {
         System.out.println("Welcome to Snake and Ladder");
-        int StartPos = 0;
-        int Ladder = 1;
-        int Snake = 2;
-        int player_position=0;
-        int WINNING_POSITION = 100;
-        int diceCount = 0;
-        System.out.println("Game Starts Now");
-        System.out.println("Starting position of player is: "+StartPos);
-
-        while (player_position < WINNING_POSITION) {
-            Random rd = new Random();
-            int diceroll = rd.nextInt(7);//0-6
-            System.out.println("Player gets Dice Number :: " + diceroll);
-            diceCount++;
-            System.out.println("DiceCount :: " + diceCount);
-
-            int toss = rd.nextInt(3);
-            System.out.println("case..." + toss);
-
-            switch (toss) {
-                case 0:
-                    System.out.println("No Play");
-                    break;
-                case 1:
-                    player_position = player_position + diceroll;
-                    if(player_position > WINNING_POSITION) {
-                        player_position -= player_position;
-                    }
-                    System.out.println("Ladder : " + player_position);
-                    break;
-                case 2:
-                    player_position = player_position - diceroll;
-                    System.out.println("Snake : " + player_position);
-                    if(player_position<0)
-                    {
-                        player_position = 0;
-                    }
-                    break;
-                default:
-                    System.out.println("invalid choice");
-
+        int dice = 0;
+        int Player1Score = 0;
+        int Player2Score = 0;
+        int count1 = 0, count2 = 0;
+        int Flag = 0, Choice;
+        Random rd = new Random();
+        System.out.println("Player1 dice value  Player1 Score  Player2 dice value  Player2 Score");
+        for (int i = 0; Player1Score != 100 && Player2Score != 100; i++){
+            if (Flag == 0) {
+                dice = rd.nextInt(6);
+                dice++;
+                Choice = rd.nextInt(3);
+                switch (Choice){
+                    case 0 :
+                        System.out.println("No Play");
+                        Flag = 1;
+                        continue;
+                    case 1:
+                        count1++;
+                        Flag = 1;
+                        if (dice == 6) {
+                            Flag = 0;
+                        }
+                        if ((dice + Player1Score) > 100) {
+                            System.out.println("Player 2 Score Above 100");
+                            continue;
+                        }
+                        Player1Score = Player1Score + dice;
+                        System.out.println(" " + dice + " " + Player1Score + " ");
+                        break;
+                    case 2:
+                        count2++;
+                        Flag = 1;
+                        Player1Score = Player1Score - dice;
+                        if (Player1Score < 0) {
+                            Player1Score = 0;
+                        }
+                        if (dice == 6) {
+                            Flag = 0;
+                        }
+                        System.out.println(" ******Snake*******");
+                        System.out.println(" " + dice + " " + Player1Score + " ");
+                }
             }
+            if (Flag == 1) {
+                dice = rd.nextInt(6);
+                dice++;
+                Choice = rd.nextInt(3);
+                switch (Choice) {
+                    case 0:
+                        System.out.println(" No Play");
+                        Flag = 0;
+                        continue;
+                    case 1:
+                        count2++;
+                        Flag = 0;
+                        if ((dice + Player2Score) > 100) {
+                            System.out.println(" Player 2 Score Above 100 ");
+                            if (dice == 6)
+                                Flag = 1;
+                            continue;
+                        }
+                        Player2Score = Player2Score + dice;
+                        System.out.println(" " + dice + " " + Player2Score);
+                        break;
+                    case 2:
+                        Flag = 0;
+                        count2++;
+                        Player2Score = Player2Score - dice;
+                        if (Player2Score < 0) {
+                            Player2Score = 0;
+                        }
+                        if (dice == 6) {
+                            Flag = 1;
+                        }
+                        System.out.println(" ******Snake*******");
+                        System.out.println(" " + dice + " " + Player2Score);
+                }
+            }
+
         }
-        System.out.println("Congratulation you Won ... ");
-        System.out.println("Number of times the Dice was played." + diceCount);
+        if (Player1Score == 100)
+            System.out.println("Player 1 Won The match");
+        if (Player2Score == 100)
+            System.out.println("Player 2 Won The match");
+        System.out.println("Number of times the dice played by Player 1: " + count1);
+        System.out.println("Number of times the dice played by Player 2: " + count2);
     }
 }
