@@ -10,6 +10,7 @@ public class SnakeLadderMain {
         int Snake = 2;
         int player_position=0;
         int WINNING_POSITION = 100;
+        int diceCount = 0;
         System.out.println("Game Starts Now");
         System.out.println("Starting position of player is: "+StartPos);
 
@@ -17,6 +18,8 @@ public class SnakeLadderMain {
             Random rd = new Random();
             int diceroll = rd.nextInt(7);//0-6
             System.out.println("Player gets Dice Number :: " + diceroll);
+            diceCount++;
+            System.out.println("DiceCount :: " + diceCount);
 
             int toss = rd.nextInt(3);
             System.out.println("case..." + toss);
@@ -46,5 +49,6 @@ public class SnakeLadderMain {
             }
         }
         System.out.println("Congratulation you Won ... ");
+        System.out.println("Number of times the Dice was played." + diceCount);
     }
 }
